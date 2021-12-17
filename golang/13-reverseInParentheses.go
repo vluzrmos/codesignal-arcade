@@ -5,7 +5,23 @@ import (
 	"strings"
 )
 
-func StringReverse(input string) string {
+func solution(inputString string) string {
+	start := strings.LastIndex(inputString, "(")
+
+	if start == -1 {
+		return inputString
+	}
+
+	end := start + 1 + strings.Index(inputString[start+1:], ")")
+
+	sub := helper_StringReverse(helper_StringSub(inputString, start+1, end))
+
+	newInput := helper_StringSub(inputString, 0, start) + sub + helper_StringSub(inputString, end+1, len(inputString))
+
+	return solution(newInput)
+}
+
+func helper_StringReverse(input string) string {
 	if len(input) <= 1 {
 		return input
 	}
@@ -19,7 +35,7 @@ func StringReverse(input string) string {
 	return string(s)
 }
 
-func StringSub(input string, start, end int) string {
+func helper_StringSub(input string, start, end int) string {
 	if start >= len(input) || end > len(input) {
 		return ""
 	}
@@ -33,22 +49,6 @@ func StringSub(input string, start, end int) string {
 	}
 
 	return input[start:end]
-}
-
-func solution(inputString string) string {
-	start := strings.LastIndex(inputString, "(")
-
-	if start == -1 {
-		return inputString
-	}
-
-	end := start + 1 + strings.Index(inputString[start+1:], ")")
-
-	sub := StringReverse(StringSub(inputString, start+1, end))
-
-	newInput := StringSub(inputString, 0, start) + sub + StringSub(inputString, end+1, len(inputString))
-
-	return solution(newInput)
 }
 
 func main() {

@@ -26,6 +26,7 @@ func solution(a []int, b []int) bool {
 		return false
 	}
 
+	//Reverse D
 	d[0], d[1] = d[1], d[0]
 
 	for i := range c {
