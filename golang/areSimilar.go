@@ -1,33 +1,40 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func solution(a []int, b []int) bool {
-	swaps := 0
-	lenOfB := len(b)
+	c := make([]int, 0)
+	d := make([]int, 0)
+
+	equals := true
 
 	for i := range a {
-		if a[i] == b[i] {
-			continue
+		if a[i] != b[i] {
+			equals = false
+			c = append(c, a[i])
+			d = append(d, b[i])
 		}
+	}
 
-		found := false
+	if equals {
+		return true
+	}
 
-		for t := i + 1; swaps == 0 && t < lenOfB; t++ {
-			if a[i] == b[t] {
-				b[i], b[t] = b[t], b[i]
-				found = true
-				swaps++
-				break
-			}
-		}
+	if len(c) != 2 {
+		return false
+	}
 
-		if !found {
+	d[0], d[1] = d[1], d[0]
+
+	for i := range c {
+		if c[i] != d[i] {
 			return false
 		}
 	}
 
-	return swaps <= 1
+	return true
 }
 
 func main() {
