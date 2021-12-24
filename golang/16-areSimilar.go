@@ -43,5 +43,4 @@ func main() {
 
 	fmt.Println("INPUT:", input)
 	fmt.Println("OUTPUT:", solution(input[0], input[1]))
-
 }
